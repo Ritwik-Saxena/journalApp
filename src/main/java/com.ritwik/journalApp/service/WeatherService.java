@@ -2,6 +2,7 @@ package com.ritwik.journalApp.service;
 
 import com.ritwik.journalApp.apiresponse.WeatherResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -12,8 +13,9 @@ import java.net.URI;
 
 @Service
 public class WeatherService {
-    private final String apiKey = "81ac266e69e2e5e7f0b885f9b0ee5450";
-    private static final String API = "http://api.weatherstack.com/current?access_key=API_KEY&query=CITY";
+    @Value("${weather.api.key}")
+    private String apiKey;
+    private String API = "http://api.weatherstack.com/current?access_key=API_KEY&query=CITY";
 
     @Autowired
     private RestTemplate restTemplate;
