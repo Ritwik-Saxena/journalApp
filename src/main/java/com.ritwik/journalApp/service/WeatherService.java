@@ -1,6 +1,8 @@
 package com.ritwik.journalApp.service;
 
 import com.ritwik.journalApp.apiresponse.WeatherResponse;
+import com.ritwik.journalApp.cache.AppCache;
+import com.ritwik.journalApp.constants.Placeholders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -15,13 +17,16 @@ import java.net.URI;
 public class WeatherService {
     @Value("${weather.api.key}")
     private String apiKey;
-    private String API = "http://api.weatherstack.com/current?access_key=API_KEY&query=CITY";
+
 
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private AppCache appCache;
+
     public WeatherResponse getWeather(String city) {
-        String finalAPI = API.replace("API_KEY", apiKey).replace("CITY", city);
+        String finalAPI = appCache.appCache.get(AppCache.keys.WEATHER_API.toString()).replace(Placeholders.API_KEY, apiKey).replace(Placeholders.CITY, city);
 
         ResponseEntity<WeatherResponse> response =restTemplate.exchange(finalAPI, HttpMethod.GET, null, WeatherResponse.class);
         WeatherResponse body = response.getBody();

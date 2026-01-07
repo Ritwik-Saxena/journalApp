@@ -1,5 +1,6 @@
 package com.ritwik.journalApp.controller;
 
+import com.ritwik.journalApp.cache.AppCache;
 import com.ritwik.journalApp.entity.User;
 import com.ritwik.journalApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AppCache appCache;
+
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers(){
         List<User> all = userService.getAll();
@@ -28,5 +32,11 @@ public class AdminController {
     @PostMapping("/create-admin-user")
     public void createAdminUser(@RequestBody User user){
         userService.saveAdmin(user);
+    }
+
+
+    @GetMapping("clear-app-cache")
+    public void clearAppCache(){
+        appCache.init();
     }
 }
