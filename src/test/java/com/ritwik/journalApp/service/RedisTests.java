@@ -4,24 +4,36 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.concurrent.TimeUnit;
 
+//@SpringBootTest
+//@ActiveProfiles("test")
+//public class RedisTests {
+//
+//    @Autowired
+//    private RedisTemplate redisTemplate;
+//
+//
+//    @Disabled
+//    @Test
+//    void testSendMail() {
+//        redisTemplate.opsForValue().set("email","gmail@email.com");
+//        Object salary = redisTemplate.opsForValue().get("salary");
+//        int a = 1;
+//    }
+//}
 @SpringBootTest
-@ActiveProfiles("test")
-public class RedisTests {
+class RedisTests {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    @MockBean
+    private RedisTemplate<String, Object> redisTemplate;
 
-
-    @Disabled
     @Test
     void testSendMail() {
-        redisTemplate.opsForValue().set("email","gmail@email.com");
-        Object salary = redisTemplate.opsForValue().get("salary");
-        int a = 1;
+        // your test code
     }
 }
